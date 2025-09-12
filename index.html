@@ -42,20 +42,60 @@
   </head>
   <body>
     <!-- Header -->
-    <header class="p-8 w-full fixed pb-[1.75rem] pt-[1.75rem] z-[9999]">
-      <!-- relative mx-auto max-w-c-1390 items-center justify-between px-4 md:px-8 xl:flex 2xl:px-0 -->
-      <div class="flex justify-between items-center 2xl:px-0 xl:flex">
+    <header
+      class="fixed left-0 top-0 w-full py-[1.75rem] z-[9999]"
+      :class="{ 'hh sm _k dj bl ll' : stickyMenu }"
+      @scroll.window="stickyMenu = (window.pageYOffset > 20) ? true : false"
+    >
+      <div
+        class="mx-auto max-w-[86.875rem] px-[1rem] md:px-[2rem] 2xl:px-0 lg:flex items-center justify-between relative"
+      >
         <!-- 1. Logo -->
-        <!-- flex w-full items-center justify-between xl:w-1/4 -->
-        <div class="w">
+        <div class="w-full lg:w-1/4 flex items-center justify-between">
           <a href="index.html">
             <img src="./img/logo-light.svg" alt="Logo Light" />
             <!-- <img src="./img/logo-dark.svg" alt="Logo dark" /> -->
           </a>
+
+          <!-- Hamburger button -->
+          <!-- <button
+            class="lg:hidden block"
+            @click="navigationOpen = !navigationOpen"
+          >
+            <span class="block relative h-5 w-6 cursor-pointer">
+              <span class="block overflow-hidden w-full h-full">
+                <span
+                  class="block relative top-0 left-0 bg-[#79808a] dark:bg-white h-0.5 rounded w-6 mb-1 duration-200 transition-transform transition-opacity translate-y-2 rotate-45 opacity-100"
+                  :class="{ 'opacity-100 transition-transform transition-opacity': !navigationOpen }"
+                ></span>
+                <span
+                  class="block relative top-0 left-0 bg-[#79808a] dark:bg-white h-0.5 rounded w-6 mb-1 duration-200 transition-opacity opacity-0 opacity-100"
+                  :class="{ 'opacity-100 transition-opacity': !navigationOpen }"
+                ></span>
+                <span
+                  class="block relative top-0 left-0 bg-[#79808a] dark:bg-white h-0.5 rounded w-6 mb-1 duration-200 transition-transform transition-opacity translate-y-[-2] -rotate-45 opacity-100 delay-500"
+                  :class="{ 'opacity-100 delay-500': !navigationOpen }"
+                ></span>
+              </span>
+              <span class="block overflow-hidden w-full h-full hidden">
+                <span
+                  class="block bg-[#79808a] dark:bg-white h-0.5 duration-200 transition-transform transition-opacity block absolute top-0 left-0.5 h-full opacity-0 translate-y-2 rotate-45"
+                  :class="{ 'opacity-0 translate-y-2 rotate-45': !navigationOpen }"
+                ></span>
+                <span
+                  class="block bg-[#79808a] dark:bg-white h-0.5 duration-200 transition-opacity block absolute left-0 w-full w-6 opacity-0 translate-y-[-2] -rotate-45"
+                  :class="{ 'opacity-0 translate-y-[-2] -rotate-45': !navigationOpen }"
+                ></span>
+              </span>
+            </span>
+          </button> -->
         </div>
 
         <!-- 2 Nav -->
-        <div class="w-3/4 flex justify-between items-center lg:flex lg:h-auto">
+        <div
+          class="w-full lg:w-3/4 h-0 lg:h-auto invisible lg:visible flex items-center justify-between"
+          :class="{ 'block bg-white dark:bg-[#1c2136] top-20 left-0 right-0 h-screen pt-5 pb-4 opacity-100': navigationOpen }"
+        >
           <nav>
             <!-- flex flex-col gap-5 md:flex-row md:items-center md:gap-8 xl:flex-row xl:items-center xl:gap-10 -->
             <ul class="flex gap-10">
@@ -124,7 +164,6 @@
             </ul>
           </nav>
           <!-- 3. Mode & Sign -->
-          <!-- ml-auto mt-7 flex items-center gap-6 xl:mt-0 -->
           <div class="flex ml-auto items-center gap-6">
             <div class="cursor-pointer mr-3">
               <img
@@ -819,16 +858,22 @@
       <img src="./img/shape-13.svg" alt="" class="absolute top-0 right-0" />
 
       <!-- Title -->
-      <div>
+      <div
+        x-data="{ sectionTitle: 'We Offer Great Affordable Premium Prices.', sectionTitleText: 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using.' }"
+      >
         <div
           class="animate__animated animate__fadeInDown animate__slower mx-auto max-w[86.875rem] text-center px-[1rem] md:px-[2rem] xl:px-0"
         >
           <h2
+            x-text="sectionTitle"
             class="font-[600] text-[1.875rem] leading-[2.25rem] xl:text-[45px] xl:leading-[55px] text-[#181c31] md:w-[80%] xl:w-1/2 mx-auto mb-[1.125rem] font-outfit"
           >
             We Offer Great Affordable Premium Prices.
           </h2>
-          <p class="mx-auto md:w-[80%] lg:w-3/5 xl:w-[46%]">
+          <p
+            x-text="sectionTitleText"
+            class="mx-auto md:w-[80%] lg:w-3/5 xl:w-[46%]"
+          >
             It is a long established fact that a reader will be distracted by
             the readable content of a page when looking at its layout. The point
             of using.
@@ -841,17 +886,18 @@
         <span class="font-[500] text-[#181c31]">Bill Monthly</span>
         <button
           class="relative rounded-full focus:outline-none"
+          x-cloak
           @click="billPlan == 'monthly' ? billPlan = 'annually' : billPlan = 'monthly'"
         >
           <!-- Track -->
           <div
-            class="w-[2.75rem] h-[1.5rem] bl bg-[#4e6bff] rounded-full xk outline-none og"
+            class="w-[2.75rem] h-[1.5rem] bl bg-[#4e6bff] rounded-full xk outline-none"
           ></div>
 
           <!-- Thumb -->
           <div
             class="absolute inline-flex items-center justify-center w-[1.125rem] h-[1.125rem] cl jl ml mf bg-[#ffffff] rounded-full yk top-[3px] left-[0.25rem] ff"
-            :class="{ 'translate-x-[22px]': billPlan === 'annually', 'translate-x-0': billPlan === 'monthly' }"
+            :class="{ 'ff': billPlan == 'monthly', 'gf': billPlan == 'annually' }"
           ></div>
         </button>
         <span class="font-[500] text-[#181c31]">Bill Annually</span>
@@ -864,7 +910,8 @@
         <div
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[2.5rem]"
         >
-          <template x-for="(plan, i) in plans" :key="i">
+          <template x-for="(plan, i) in plans" x-key="i">
+            <!-- Item 1 -->
             <div
               class="animate__animated animate__fadeInDown animate__slower text-center rounded-[0.5rem] bg-[#ffffff] sm vk xm px-[1.875rem] pt-[2.75rem] pb-[2.5rem]"
             >
@@ -872,17 +919,38 @@
                 x-text="plan.name"
                 class="text-[22px] text-[#181c31] mb-[2.5rem]"
               ></h4>
+
               <div
                 class="flex items-center justify-center gap-[0.375rem] mb-[0.375rem]"
               >
                 <h2
+                  :class="plan.name == 'Basic' ? 'text-green-500' : ''"
+                  x-text="`$${billPlan == 'monthly' ? plan.price.monthly : plan.price.annually}`"
                   class="font-[600] text-[40px] leading-[42px] text-[#181c31]"
-                  x-text="`$${billPlan === 'monthly' ? plan.price.monthly : plan.price.annually}`"
                 ></h2>
                 <span
-                  x-text="billPlan === 'monthly' ? '/per month' : '/per year'"
+                  x-text="billPlan == 'monthly' ? '/per month' : '/per year'"
                 ></span>
               </div>
+              <p class="mb-[2.375rem]">No credit card required</p>
+
+              <!-- Buttton -->
+              <a
+                href="#"
+                class="font-[500] rounded-full text-[#ffffff] ml il py-[0.75rem] px-[3.25rem]"
+                :class="plan.name == 'Growth Plan' ? 'gh sl' : 'mh tl'"
+              >
+                Try for free
+              </a>
+
+              <!-- Features -->
+              <ul class="flex flex-col gap-[0.75rem] mt-[1.875rem] mb-[2.5rem]">
+                <template x-for="(feature, i) in plan.features" x-key="i">
+                  <li x-text="feature"></li>
+                </template>
+              </ul>
+
+              <p class="text-[#181c31]">7-day free trial</p>
             </div>
           </template>
         </div>
@@ -939,5 +1007,8 @@
         };
       };
     </script>
+
+    <!-- Alpine -->
+    <script defer src="./bundle.js"></script>
   </body>
 </html>
